@@ -34,12 +34,21 @@ stages:
       json:
         status: 400
         message: "Bad request"
+  - name: n=0.1に該当するJsonデータを取得
+    request:
+      url: http://127.0.0.1:5001/fibapi-eac15/us-central1/fib?n=0.1
+      method: GET
+    response:
+      status_code: 400
+      json:
+        status: 400
+        message: "Bad request"
   - name: nがないときのテスト
     request:
       url: http://127.0.0.1:5001/fibapi-eac15/us-central1/fib?n=
       method: GET
     response:
-      status_code: 400
+      status_code: 500
       json:
         status: 400
         message: "Bad request"
