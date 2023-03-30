@@ -1,0 +1,63 @@
+test_name: apiテスト
+
+stages:
+  - name: n=1に該当するJsonデータを取得
+    request:
+      url: http://127.0.0.1:5001/fibapi-eac15/us-central1/fib?n=1
+      method: GET
+    response:
+      status_code: 200
+      json:
+        result: 1
+  - name: n=99に該当するJsonデータを取得
+    request:
+      url: http://127.0.0.1:5001/fibapi-eac15/us-central1/fib?n=99
+      method: GET
+    response:
+      status_code: 200
+      json:
+        result: 218922995834555200000
+  - name: n=0に該当するJsonデータを取得
+    request:
+      url: http://127.0.0.1:5001/fibapi-eac15/us-central1/fib?n=0
+      method: GET
+    response:
+      status_code: 200
+      json:
+        result: 0
+  - name: n=-1に該当するJsonデータを取得
+    request:
+      url: http://127.0.0.1:5001/fibapi-eac15/us-central1/fib?n=-1
+      method: GET
+    response:
+      status_code: 400
+      json:
+        status: 400
+        message: "Bad request"
+  - name: n=0.1に該当するJsonデータを取得
+    request:
+      url: http://127.0.0.1:5001/fibapi-eac15/us-central1/fib?n=0.1
+      method: GET
+    response:
+      status_code: 400
+      json:
+        status: 400
+        message: "Bad request"
+  - name: nがないときのテスト
+    request:
+      url: http://127.0.0.1:5001/fibapi-eac15/us-central1/fib?n=
+      method: GET
+    response:
+      status_code: 500
+      json:
+        status: 400
+        message: "Bad request"
+  - name: nに不正な入力があるときのテスト
+    request:
+      url: http://127.0.0.1:5001/fibapi-eac15/us-central1/fib?n=nyaan
+      method: GET
+    response:
+      status_code: 400
+      json:
+        status: 400
+        message: "Bad request"

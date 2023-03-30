@@ -6,7 +6,7 @@ const functions = require("firebase-functions");
 //
 exports.fib = functions.https.onRequest((request, response) => {
   const n = request.query.n;
-  if (n == null || n == undefined || n == "") {
+  if (n == null || n == undefined || n == "" || !Number.isInteger(Number(n))) {
     response.status(400).send({status: 400, message: "Bad request"});
   }
   const fib = Array(n+1);
